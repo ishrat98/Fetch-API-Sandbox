@@ -1,6 +1,7 @@
 document.getElementById('getText').addEventListener('click', getText);
 document.getElementById('getUsers').addEventListener('click', getUsers);
 document.getElementById('getPosts').addEventListener('click', getPosts);
+document.getElementById('addPost').addEventListener('submit', addPost);
 
 function getText()  {
 //   console.log(12);
@@ -25,10 +26,10 @@ function getUsers() {
         let output='<h2>users<h2>';
         data.forEach(function(user) {
             output += `
-            <ul>
-            <li>ID: ${user.id} </li>
-            <li> Name: ${user.name} </li>
-            <li> Email: ${user.email}</li>
+            <ul class="list-group mb-3">
+            <li class="list-group-item">ID: ${user.id} </li>
+            <li class="list-group-item"> Name: ${user.name} </li>
+            <li class="list-group-item"> Email: ${user.email}</li>
             </ul>
             `;
         });
@@ -43,7 +44,7 @@ function getPosts() {
         let output='<h2>Posts<h2>';
         data.forEach(function(post) {
             output += `
-            <div>
+            <div class="card card-body mb-3">
 
             <h3>${post.title} </h3>
             <p> ${post.body}</p>
@@ -55,5 +56,24 @@ function getPosts() {
     })
 }
 
+function addPost(e) {
+
+    e.preventDefault();
+
+    let title = document.getElementById('title').nodeValue;
+    let body = document.getElementById('body').nodeValue;
+
+    fetch('https://jsonplaceholder.typicode.com/posts', {
+        method:'POST',
+        headers:    {
+            'Accept': 'application/json, text/SecurityPolicyViolationEvent, */*',
+            'Content-type': 'application/json'
+
+        },
+        body:JSON.stringify({title:title, body:body})
+    })
+    .then(res=> res.json())
+    .then(data=> console.log(data))
+}
 
 
