@@ -1,16 +1,26 @@
 document.getElementById('getText').addEventListener('click', getText);
+document.getElementById('getUsers').addEventListener('click', getUsers);
 
 function getText()  {
 //   console.log(12);
 
 fetch('text.txt')
 .then(res=> {
-   return res.text();
+    return res.text();
 })
 .then(data=>    {
-    console.log(data);
+    document.getElementById('output').innerHTML = data;
+})
+.catch(err =>   {
+    console.log(err);
 })
 
-  }
+}
+
+function getUsers() {
+    fetch('users.json')
+    .then(res=>res.json())
+}
+
 
 
